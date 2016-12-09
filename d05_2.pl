@@ -4,16 +4,14 @@
 #   Discussion: http://gerikson.com/blog/comp/Advent-of-Code-2016.html#d05
 #      License: http://gerikson.com/files/AoC2016/UNLICENSE
 ###########################################################
-
-use strict;
+use 5.016;    # implies strict, provides 'say'
 use warnings;
-use feature qw/say/;
+use autodie;
 use List::Util qw/sum notall/;
-
 # this module is available from CPAN
 use Digest::MD5 qw(md5_hex);
-#### INIT
 
+#### INIT
 my $testing = 0;
 my $input = $testing ? 'abc' : 'abbhdwsy';
 

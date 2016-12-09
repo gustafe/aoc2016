@@ -4,22 +4,18 @@
 #   Discussion: http://gerikson.com/blog/comp/Advent-of-Code-2016.html#d05
 #      License: http://gerikson.com/files/AoC2016/UNLICENSE
 ###########################################################
-
-use strict;
+use 5.016;    # implies strict, provides 'say'
 use warnings;
-use feature qw/say/;
+use autodie;
 use List::Util qw/sum notall/;
 use Time::HiRes qw/gettimeofday tv_interval/;
-
-# this module is available from CPAN
 use Digest::MD5 qw(md5_hex);
-#### INIT
 
+#### INIT
 my $testing = 0;
 my $input = $testing ? 'abc' : 'abbhdwsy';
 
 ### CODE
-
 my $t0 = [gettimeofday];
 say " input: $input";
 my @password = (undef) x 8;
