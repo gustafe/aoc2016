@@ -4,21 +4,18 @@
 #   Discussion: http://gerikson.com/blog/comp/Advent-of-Code-2016.html#d01
 #      License: http://gerikson.com/files/AoC2016/UNLICENSE
 ###########################################################
-
-use strict;
+use 5.016;    # implies strict, provides 'say'
 use warnings;
-use feature qw/say/;
+use autodie;
 
 my $testing = 0;
-my $file = $testing ? 'test.txt' : 'input.txt' ;
-open F, "<$file" or die "can't open file: $!\n";
 my @input;
-while ( <F> ) {
-    chomp;
-    s/\r//gm;
-    push @input, $_;
+my $file = $testing ? 'test.txt' : 'input.txt' ;
+{
+    open( my $fh, '<', "$file" );
+    while (<$fh>) { chomp; s/\r//gm; push @input, $_; }
 }
-close F;
+
 
 my %new_dir = ( N => { L => ['W',-1, 0],
 		       R => ['E', 1, 0] },

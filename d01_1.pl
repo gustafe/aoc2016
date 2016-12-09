@@ -4,9 +4,9 @@
 #   Discussion: http://gerikson.com/blog/comp/Advent-of-Code-2016.html#d01
 #      License: http://gerikson.com/files/AoC2016/UNLICENSE
 ###########################################################
-use strict;
+use 5.016;
 use warnings;
-use feature qw/say/;
+use autodie;
 
 my $testing = 0;
 my $file = $testing ? 'test.txt' : 'input.txt' ;
