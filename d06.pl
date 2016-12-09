@@ -18,7 +18,8 @@ my $file = $testing ? 'test.txt' : 'input.txt';
 }
 
 ### CODE
-
+# change value of $part for part 2
+my $part = 1;
 my $data;
 foreach my $line (@input) {
     my @chars = split( //, $line );
@@ -27,9 +28,10 @@ foreach my $line (@input) {
 
 my $answer;
 foreach my $hash ( @{$data} ) {
+    my $sortings = { 1 => sub { $hash->{$a} <=> $hash->{$b} },
+                     2 => sub { $hash->{$b} <=> $hash->{$a} }, };
 
-    # reverse the position of $a and $b below for part 1
-    my @freq = sort { $hash->{$b} <=> $hash->{$a} } keys %{$hash};
+    my @freq = sort { &{ $sortings->{$part} } } keys %{$hash};
     $answer .= pop @freq;
 }
 say $answer;
