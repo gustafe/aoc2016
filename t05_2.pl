@@ -38,7 +38,6 @@ while ( notall { defined $_ } @password ) {
     $i++;
 }
 
-#my $t1 = [gettimeofday];
 my $elapsed = tv_interval($t0);
 say 'answer: ', join( '', @password );
 say sprintf( "%d hashes. Elapsed time: %d s, %.02f KH/s",
