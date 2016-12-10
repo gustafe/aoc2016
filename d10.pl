@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Advent of Code 2016 Day 10 - complete solution
+# Advent of Code 2016 Day 10 - part 1 / part 2 / complete solution
 # Problem link: http://adventofcode.com/2016/day/10
 #   Discussion: http://gerikson.com/blog/comp/Advent-of-Code-2016.html#d10
 #      License: http://gerikson.com/files/AoC2016/UNLICENSE
@@ -19,6 +19,7 @@ my $file = $testing ? 'test.txt' : 'input.txt';
 
 ### CODE
 my %state;
+my @goal = $testing ? ( 2, 5 ) : ( 17, 61 );
 while ( scalar @input > 0 ) {
     my $cmd = shift @input;
     if ( $cmd =~ m/^value/ ) {
@@ -44,11 +45,10 @@ while ( scalar @input > 0 ) {
 my $part2 = 1;
 foreach my $e ( keys %state ) {
     my @a = sort { $a <=> $b } @{ $state{$e} };
-    if ( scalar @a == 2 and $a[0] == 17 and $a[1] == 61 ) {
-	say "Part 1: $e" ;
-    }
+    say "Part 1: $e" if ( join( '', @a ) eq join( '', @goal ) );
     if ( $e eq 'output 0' or $e eq 'output 1' or $e eq 'output 2' ) {
-	$part2 *= ${ $state{$e} }[0];
+        $part2 *= ${ $state{$e} }[0];
     }
 }
+
 say "Part 2: $part2";
