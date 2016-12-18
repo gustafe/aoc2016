@@ -24,7 +24,7 @@ my $file = $testing ? 'test.txt' : 'input.txt';
 my @rows;
 my $safe_count = 0;
 push @rows, $input[0];
-#print Dumper @rows;
+
 while ( scalar @rows < $target ) {
     my @prev = split(//,$rows[-1]);
     my $new;
