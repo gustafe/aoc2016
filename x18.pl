@@ -7,7 +7,7 @@
 use 5.016;    # implies strict, provides 'say'
 use warnings;
 use autodie;
-
+use List::Util qw/sum/;
 #### INIT - load input data into array
 my $part2 = shift || 0;
 my $testing = 0;
@@ -32,9 +32,7 @@ my @row = ( $safe,
 	    map  {$_ eq '^' ? $trap : $safe } (split //, $input[0]),
 	    $safe );
 
-for my $el (@row ) { $safe_count += $el }
-# remove the spurious safes
-$safe_count -= 2;
+$safe_count = sum( @row ) - 2;
 
 for my $count ( 1 .. $target - 1 ) {
     my @new = (undef) x @row;
@@ -42,8 +40,7 @@ for my $count ( 1 .. $target - 1 ) {
     for ( my $i = 1; $i < @row -1 ; $i++ ) {
 	$new[$i] //= ( $row[$i-1] xor $row[$i+1])? $trap : $safe ;
     }
-    for my $el ( @new ) { $safe_count += $el }
-    $safe_count -= 2;
+    $safe_count = sum( @new ) - 2;
     @row = @new;
 }
 say ">>> $safe_count";
