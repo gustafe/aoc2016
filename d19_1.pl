@@ -14,12 +14,12 @@ my $no_of_elves = $testing ? 5 : 3005290;
 
 ### CODE
 
-my @elves = (1..$no_of_elves);
+my @elves = ( 1 .. $no_of_elves );
 
-while (scalar @elves > 1 ) {
+while ( scalar @elves > 1 ) {
     my $taker = shift @elves;
     shift @elves;
     push @elves, $taker;
 }
 
-say ">>> ", join('', @elves);
+say ">>> ", join( '', @elves );
