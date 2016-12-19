@@ -30,8 +30,8 @@ while ( @left ) {
 	push @left, $transfer;
     }
     # shift the taker to the end of the @right array
-    my $giver = shift @left;
-    push @right, $giver;
+    my $taker = shift @left;
+    push @right, $taker;
 }
 
 say ">>> ", join('',@right);
