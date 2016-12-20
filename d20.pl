@@ -28,6 +28,13 @@ for my $line (@input) {
     push @ranges, [ $start, $end ];
 }
 
+sub stringify {
+    my ($n) = @_;
+    die "can't stringify this giant number $n!" unless $n <= $MAX_IP;
+    my @dotted = unpack 'C4', pack 'N', $n;
+    return sprintf( "%10d (%3d.%3d.%3d.%3d)", $n, @dotted );
+}
+
 @ranges = sort { $a->[0] <=> $b->[0] } @ranges;
 
 my $starting      = shift @ranges;
@@ -37,21 +44,32 @@ my $first_allowed = undef;
 while (@ranges) {
     my $ending = shift @ranges;
     if ($debug) {
-        printf( "  HWM: %10s   %10d\n", '', $hwm );
-        printf( "Start: %10d - %10d\n", @{$starting} );
-        printf( "  End: %10d - %10d\n", @{$ending} );
+        say "  HWM: ", stringify($hwm);
+
+        #        printf( "  HWM: %10s   %10d\n", '', $hwm );
+        say "Start: ",
+            stringify( $starting->[0] ), ' - ',
+            stringify( $starting->[1] );
+        say "  End: ",
+            stringify( $ending->[0] ), ' - ',
+            stringify( $ending->[1] );
+
     }
+    if ( $debug and ( $starting->[1] >= $ending->[1] ) ) {
+        printf( ">OVER: %10d < %10d (%d)\n",
+                $ending->[1], $starting->[1], $starting->[1] - $ending->[1] );
+    }
+
     if ( $ending->[0] - $hwm > 1 ) {
         if ( !defined $first_allowed ) {
             $first_allowed = $hwm + 1;
             say "1>> first not blocked: $first_allowed";
         }
 
-
         if ($debug) {
-            printf ">>GAP next highest: %10d\n", $ending->[0];
-            printf "               hwm: %10d\n", $hwm;
-            printf "              DIFF: %10d\n", $ending->[0] - $hwm;
+            say ">>GAP next highest: ", stringify( $ending->[0] );
+            say "               HWM: ", stringify($hwm);
+            say "              DIFF: ", $ending->[0] - $hwm;
         }
         $allowed += $ending->[0] - $hwm - 1;
     }
