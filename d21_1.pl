@@ -50,7 +50,7 @@ sub move_pos {
 
 my $starting = $testing ? 'abcde' : 'abcdefgh';
 my @code = split( //, $starting );
-my $debug = 1;
+my $debug = 0;
 
 for my $line (@input) {
     if ( $line =~ m/^move position (\d+) to position (\d+)$/ ) {
@@ -60,13 +60,7 @@ for my $line (@input) {
         say @code if $debug;
     } elsif ( $line =~ m/^reverse positions (\d+) through (\d+)$/ ) {
         printf( "%36s: %s -> ", $line, join( '', @code ) ) if $debug;
-        my @tmp = @code[ $1 .. $2 ];
-        @tmp = reverse @tmp;
-        my $count = 0;
-        while (@tmp) {
-            $code[ $1 + $count ] = shift @tmp;
-            $count++;
-        }
+	@code[$1..$2] = reverse @code[$1..$2];
         say @code if $debug;
     } elsif ( $line =~ m/^rotate based on position of letter (.)$/ ) {
         printf( "%36s: %s -> ", $line, join( '', @code ) ) if $debug;
@@ -102,10 +96,7 @@ for my $line (@input) {
         say @code if $debug;
     } elsif ( $line =~ m/^swap position (\d+) with position (\d+)$/ ) {
         printf( "%36s: %s -> ", $line, join( '', @code ) ) if $debug;
-        my @tmp = @code;
-        $tmp[$1] = $code[$2];
-        $tmp[$2] = $code[$1];
-        @code    = @tmp;
+	@code[$2,$1] = @code[$1,$2];
         say @code if $debug;
     } else {
         die "can't parse line: $line";
