@@ -92,7 +92,8 @@ printf( "Start: x=%d y=%d\n", $start->{x}, $start->{y} );
 # https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhvzaw/
 #     move empty to 0,0: moves = start_x + start_y
 # move empty to x_max,0: moves += x_max
-# each move of goal data one step left is 5 moves:
+# each move of goal data one step left is 5 moves,
+# as the empty "cycles around": 
 #                        moves += (x_max - 1)*5
 
 say "Part 2: ", $start->{x} + $start->{y} + $max_x + ( $max_x - 1 ) * 5;
