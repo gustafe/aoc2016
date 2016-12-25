@@ -16,7 +16,7 @@ my $no_of_elves = $testing ? 5 : 3005290;
 # Credit:
 # https://www.reddit.com/r/adventofcode/comments/5j4lp1/2016_day_19_solutions/dbdnz4l/
 
-# Divide the elves into left and right ‘halves’, the right half being
+# Divide the elves into left and right "halves", the right half being
 # bigger if there's an odd number.
 my @left = ( 1.. $no_of_elves / 2);
 my @right= ( $no_of_elves/2 + 1 .. $no_of_elves );
